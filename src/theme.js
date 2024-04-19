@@ -1,5 +1,6 @@
 import { createContext, useStade, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 //design das cores
 
@@ -122,3 +123,51 @@ export const tokens = (mode) => ({
         }),
 
 });
+
+// settings do theme
+
+export const themeSettings = (mode) => {
+
+    const colors = tokens(mode);
+
+    return {
+        pallete: {
+            mode: mode,
+            ...(mode === 'dark'
+            ?  {
+                primary:{
+                    main: colors.primary[500],
+                },
+                secondary: {
+                    main: colors.greenAccent[500],
+                },
+                neutral: {
+                    dark: colors.grey[700],
+                    main: colors.grey[500],
+                    light: colors.grey[100],
+                },
+                backgroud: {
+                    default: colors.primary[500],
+                }
+            } : {
+                primary:{
+                    main: colors.primary[100],
+                },
+                secondary: {
+                    main: colors.greenAccent[500],
+                },
+                neutral: {
+                    dark: colors.grey[700],
+                    main: colors.grey[500],
+                    light: colors.grey[100],
+                },
+                backgroud: {
+                    default: "#fcfcfc",
+                }                
+            }),
+    },
+    typography: {
+        fontFamily: ["Source Sans Pro", "Sans-serif"].join(",")
+    }
+}
+}
