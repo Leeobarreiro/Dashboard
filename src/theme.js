@@ -1,4 +1,4 @@
-import { createContext, useStade, useMemo } from "react";
+import { createContext, useStade, useMemo, useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 
@@ -193,6 +193,27 @@ export const themeSettings = (mode) => {
             fontFamily: ["Source Sans Pro", "Sans-serif"].join(","),
             fontSize: 14,
         },
-    }
-}
-}
+    },
+};
+};
+
+// Color mode Context
+export const ColorModeContext = createContext({
+    toggleColorMode: () => {}
+});
+
+export const useMode = () => {
+    const [mode, setMode] = useState('dark');
+    const colorMode = useMemo(
+        () => ({
+
+            toggleColorMode: () =>
+            setMode((prev) => (prev === 'light' ? "dark" : "light"))
+        }),
+        []
+    );
+
+    const theme = useMemo (() => createTheme (themeSettings(mode)), [mode])
+
+    return [theme, colorMode];
+};
